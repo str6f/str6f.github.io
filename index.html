@@ -65,7 +65,6 @@
             stroke-linecap: round;
         }
 
-        /* Эффект гирлянды: вспыхивание и неон */
         .bg-icon.glow {
             animation: flickerGlow 3.5s infinite ease-in-out;
         }
@@ -86,7 +85,7 @@
             stroke: #ffffff;
         }
 
-        /* Контейнеры секций над фоном */
+        /* Контейнеры секций */
         .section {
             min-height: 85vh;
             width: 100%;
@@ -98,7 +97,30 @@
             position: relative;
             z-index: 10;
         }
-        
+
+        /* Аватарка профиля */
+        .profile-avatar {
+            width: 110px;
+            height: 110px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 2px solid #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+            animation: avatarGlow 3s infinite alternate ease-in-out;
+        }
+
+        @keyframes avatarGlow {
+            0% {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+                border-color: #888888;
+            }
+            100% {
+                box-shadow: 0 0 25px rgba(255, 255, 255, 0.8);
+                border-color: #ffffff;
+            }
+        }
+
         /* Чёрно-белый неоновый заголовок */
         h1 {
             color: #ffffff;
@@ -148,8 +170,17 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 8px;
+            gap: 12px;
             animation: cardGlow 4s infinite alternate ease-in-out;
+        }
+
+        /* Маленькие круглые иконки внутри карточек */
+        .card-icon {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            object-fit: cover;
+            flex-shrink: 0;
         }
 
         @keyframes cardGlow {
@@ -228,7 +259,6 @@
             color: #ffffff;
         }
 
-        /* Анимированная стрелочка вниз */
         .scroll-down {
             margin-top: 15px;
             color: #ffffff;
@@ -245,18 +275,11 @@
         }
 
         @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
-            }
-            40% {
-                transform: translateY(-10px);
-            }
-            60% {
-                transform: translateY(-5px);
-            }
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
         }
 
-        /* Стиль для второго блока Deff */
         .deff-card {
             font-size: 1.1rem;
             font-weight: 600;
@@ -279,17 +302,22 @@
 
     <!-- Первая секция -->
     <div class="section" id="top">
+        <!-- Аватарка профиля -->
+        <img src="avatar.png" alt="Avatar" class="profile-avatar">
+
         <h1>str6f</h1>
         <p class="subtitle">Мои ссылки</p>
 
-        <!-- Telegram (без юзернейма в тексте, но ссылается на t.me/str6f) -->
+        <!-- Telegram с синей иконкой -->
         <a href="https://t.me/str6f" class="card" target="_blank">
-            Telegram
+            <img src="https://upload.wikimedia.org/wikipedia/commons/8/82/Telegram_logo.svg" alt="Telegram" class="card-icon">
+            <span>Telegram</span>
         </a>
 
-        <!-- Discord Channel -->
+        <!-- Discord Channel с аниме-иконкой -->
         <a href="https://discord.gg/xn5xf3Z8S" class="card" target="_blank">
-            Discord Channel
+            <img src="discord-icon.png" alt="Discord" class="card-icon">
+            <span>Discord Channel</span>
         </a>
 
         <!-- Номер телефона -->
@@ -314,7 +342,7 @@
             </a>
         </div>
 
-        <!-- Кнопка-стрелочка для перехода вниз -->
+        <!-- Переход вниз -->
         <a href="#deff-section" class="scroll-down" title="Проскроллить вниз">↓</a>
     </div>
 
@@ -326,28 +354,20 @@
     </div>
 
     <script>
-        // SVG иконка Doxbin (рогатый череп)
         const doxbinSvg = `
         <svg viewBox="0 0 100 100">
-            <!-- Рога -->
             <path d="M 28 32 C 18 12, 28 2, 34 8 C 30 18, 36 28, 38 34" />
             <path d="M 72 32 C 82 12, 72 2, 66 8 C 70 18, 64 28, 62 34" />
-            <!-- Уши -->
             <path d="M 26 40 C 12 42, 16 56, 26 58" />
             <path d="M 74 40 C 88 42, 84 56, 74 58" />
-            <!-- Голова и подбородок -->
             <path d="M 32 30 C 42 22, 58 22, 68 30 C 76 44, 72 68, 50 90 C 28 68, 24 44, 32 30 Z" />
-            <!-- Глаза -->
             <path d="M 33 50 L 46 54 L 35 59 Z" />
             <path d="M 67 50 L 54 54 L 65 59 Z" />
-            <!-- Оскал / Зубы -->
             <path d="M 36 68 Q 50 78 64 68" />
             <path d="M 40 69 L 43 75 L 46 70 L 50 76 L 54 70 L 57 75 L 60 69" />
         </svg>`;
 
         const bgGrid = document.getElementById('bg-grid');
-        
-        // Вычисляем сколько элементов поместится на экран
         const cols = Math.ceil(window.innerWidth / 85);
         const rows = Math.ceil(window.innerHeight / 85);
         const totalIcons = cols * rows;
@@ -357,10 +377,8 @@
             iconDiv.className = 'bg-icon';
             iconDiv.innerHTML = doxbinSvg;
 
-            // Случайным образом назначаем загорающиеся иконки (как гирлянда)
             if (Math.random() > 0.45) {
                 iconDiv.classList.add('glow');
-                // Рандомная задержка анимации
                 const delay = (Math.random() * 5).toFixed(2);
                 const duration = (2.5 + Math.random() * 2.5).toFixed(2);
                 iconDiv.style.animationDelay = `${delay}s`;
@@ -370,7 +388,5 @@
             bgGrid.appendChild(iconDiv);
         }
     </script>
-</body>
-</html>
 </body>
 </html>
