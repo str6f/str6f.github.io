@@ -11,10 +11,6 @@
             padding: 0;
         }
 
-        html {
-            scroll-behavior: smooth;
-        }
-
         body {
             background-color: #050505;
             color: #ffffff;
@@ -22,6 +18,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            justify-content: center;
             min-height: 100vh;
             padding: 40px 20px;
             overflow-x: hidden;
@@ -85,15 +82,13 @@
             stroke: #ffffff;
         }
 
-        /* Контейнеры секций */
-        .section {
-            min-height: 85vh;
+        /* Главный контейнер */
+        .container {
             width: 100%;
             max-width: 380px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             position: relative;
             z-index: 10;
         }
@@ -121,7 +116,7 @@
             }
         }
 
-        /* Чёрно-белый неоновый заголовок */
+        /* Неоновый заголовок */
         h1 {
             color: #ffffff;
             font-size: 2.8rem;
@@ -258,41 +253,6 @@
         .map-footer:hover {
             color: #ffffff;
         }
-
-        .scroll-down {
-            margin-top: 15px;
-            color: #ffffff;
-            text-decoration: none;
-            font-size: 1.8rem;
-            animation: bounce 2s infinite;
-            display: inline-block;
-            cursor: pointer;
-            transition: text-shadow 0.3s ease;
-        }
-
-        .scroll-down:hover {
-            text-shadow: 0 0 10px #ffffff;
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
-            40% { transform: translateY(-10px); }
-            60% { transform: translateY(-5px); }
-        }
-
-        .deff-card {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 1px;
-            padding: 18px 25px;
-            background: rgba(15, 15, 15, 0.9);
-            border-color: #555555;
-        }
-
-        .deff-card span {
-            color: #ffffff;
-            text-shadow: 0 0 8px rgba(255, 255, 255, 0.8);
-        }
     </style>
 </head>
 <body>
@@ -300,10 +260,9 @@
     <!-- Сетка фона -->
     <div id="bg-grid"></div>
 
-    <!-- Первая секция -->
-    <div class="section" id="top">
-        <!-- Аватарка профиля (avatar.jpg) -->
-        <img src="avatar.jpg" alt="Avatar" class="profile-avatar">
+    <div class="container">
+        <!-- Аватарка профиля -->
+        <img src="avatar.jpg" alt="str6f" class="profile-avatar" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/andryerfbbbst/andryerfbbbst.github.io/main/IMG_8292.jpg';">
 
         <h1>str6f</h1>
         <p class="subtitle">Мои ссылки</p>
@@ -314,9 +273,9 @@
             <span>Telegram</span>
         </a>
 
-        <!-- Discord Channel (discord-icon.jpg) -->
+        <!-- Discord Channel -->
         <a href="https://discord.gg/xn5xf3Z8S" class="card" target="_blank">
-            <img src="discord-icon.jpg" alt="Discord" class="card-icon">
+            <img src="discord-icon.jpg" alt="Discord" class="card-icon" onerror="this.onerror=null; this.src='https://raw.githubusercontent.com/andryerfbbbst/andryerfbbbst.github.io/main/454e54e8-960a-4973-81f2-df6ce8180cc5.jpg';">
             <span>Discord Channel</span>
         </a>
 
@@ -340,16 +299,6 @@
             <a href="https://www.openstreetmap.org/#map=15/34.1016/-118.3268" target="_blank" class="map-footer">
                 Открыть карту
             </a>
-        </div>
-
-        <!-- Переход вниз -->
-        <a href="#deff-section" class="scroll-down" title="Проскроллить вниз">↓</a>
-    </div>
-
-    <!-- Вторая секция -->
-    <div class="section" id="deff-section">
-        <div class="card deff-card">
-            🛡️ My Deff: <span>@Str6f</span>
         </div>
     </div>
 
