@@ -9,7 +9,6 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            cursor: none; /* Скрываем стандартный курсор */
         }
 
         body {
@@ -24,45 +23,6 @@
             padding: 40px 20px;
             overflow-x: hidden;
             position: relative;
-        }
-
-        /* Плавный неоновый курсор */
-        #custom-cursor {
-            width: 10px;
-            height: 10px;
-            background: #ffffff;
-            border-radius: 50%;
-            position: fixed;
-            top: 0;
-            left: 0;
-            pointer-events: none;
-            z-index: 9999;
-            box-shadow: 0 0 12px #ffffff, 0 0 24px rgba(255, 255, 255, 0.8);
-            transform: translate(-50%, -50%);
-            will-change: transform;
-        }
-
-        .cursor-trail {
-            width: 6px;
-            height: 6px;
-            background: rgba(255, 255, 255, 0.4);
-            border-radius: 50%;
-            position: fixed;
-            pointer-events: none;
-            z-index: 9998;
-            transform: translate(-50%, -50%);
-            animation: fadeTrail 0.4s forwards ease-out;
-        }
-
-        @keyframes fadeTrail {
-            0% {
-                opacity: 0.6;
-                transform: translate(-50%, -50%) scale(1);
-            }
-            100% {
-                opacity: 0;
-                transform: translate(-50%, -50%) scale(0.2);
-            }
         }
 
         /* Фоновая сетка с иконками Doxbin */
@@ -133,7 +93,7 @@
             z-index: 10;
         }
 
-        /* Аватарка профиля (чистое сияние) */
+        /* Аватарка профиля */
         .profile-avatar {
             width: 110px;
             height: 110px;
@@ -156,7 +116,7 @@
             }
         }
 
-        /* Неоновый заголовок без глитча */
+        /* Неоновый заголовок */
         h1 {
             color: #ffffff;
             font-size: 2.8rem;
@@ -323,9 +283,6 @@
 </head>
 <body>
 
-    <!-- Элемент плавного курсора -->
-    <div id="custom-cursor"></div>
-
     <!-- Сетка фона -->
     <div id="bg-grid"></div>
 
@@ -383,42 +340,7 @@
     </div>
 
     <script>
-        // 1. Плавный курсор
-        const cursor = document.getElementById('custom-cursor');
-        let mouseX = window.innerWidth / 2;
-        let mouseY = window.innerHeight / 2;
-        let cursorX = mouseX;
-        let cursorY = mouseY;
-        let lastTrailTime = 0;
-
-        document.addEventListener('mousemove', (e) => {
-            mouseX = e.clientX;
-            mouseY = e.clientY;
-        });
-
-        function animateCursor() {
-            cursorX += (mouseX - cursorX) * 0.22;
-            cursorY += (mouseY - cursorY) * 0.22;
-
-            cursor.style.transform = `translate3d(${cursorX - 5}px, ${cursorY - 5}px, 0)`;
-
-            const now = Date.now();
-            if (now - lastTrailTime > 40) {
-                const trail = document.createElement('div');
-                trail.className = 'cursor-trail';
-                trail.style.left = `${cursorX}px`;
-                trail.style.top = `${cursorY}px`;
-                document.body.appendChild(trail);
-
-                setTimeout(() => trail.remove(), 400);
-                lastTrailTime = now;
-            }
-
-            requestAnimationFrame(animateCursor);
-        }
-        animateCursor();
-
-        // 2. Счётчик просмотров
+        // Счётчик просмотров
         async function updateCounter() {
             try {
                 const res = await fetch('https://api.countapi.xyz/hit/str6f-github-io/pageviews');
@@ -430,7 +352,7 @@
         }
         updateCounter();
 
-        // 3. Фоновая сетка
+        // Фоновая сетка
         const doxbinSvg = `
         <svg viewBox="0 0 100 100">
             <path d="M 28 32 C 18 12, 28 2, 34 8 C 30 18, 36 28, 38 34" />
